@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="bn">
+<!DOCTYPE html>
+<html lang="bn">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,44 +35,43 @@
     }
     .welcome {
       text-align: center;
-      padding: 20px;
+      padding: 10px;
       background: rgba(0, 0, 0, 0.6);
       margin: 10px auto;
-      width: 80%;
+      width: 90%;
       border-radius: 15px;
-    }
-    .welcome p {
-      font-size: 1.2em;
-      line-height: 1.8;
+      font-size: 1.1em;
     }
     .main {
       display: flex;
-      min-height: 500px;
+      justify-content: space-between;
+      padding: 10px;
     }
-    nav {
+    .left-panel, .right-panel {
       width: 20%;
       background-color: rgba(0, 0, 0, 0.6);
-      padding: 20px;
+      padding: 10px;
+      border-radius: 10px;
     }
-    nav ul {
+    .center-panel {
+      width: 55%;
+      padding: 10px;
+    }
+    ul {
       list-style-type: none;
       padding: 0;
     }
-    nav ul li {
-      padding: 10px 5px;
+    li {
+      padding: 8px;
       margin-bottom: 10px;
       background-color: #008080;
       border-radius: 8px;
       text-align: center;
     }
-    nav ul li a {
+    a {
       color: #fff;
       text-decoration: none;
       font-weight: bold;
-    }
-    .content {
-      flex-grow: 1;
-      padding: 20px;
     }
     footer {
       background-color: rgba(0, 0, 0, 0.7);
@@ -91,28 +91,6 @@
     .qr-code img {
       width: 80px;
     }
-    form {
-      background: rgba(0,0,0,0.6);
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 30px;
-    }
-    form input, form textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      border: none;
-      font-size: 1em;
-    }
-    form button {
-      padding: 10px 20px;
-      background-color: #00FFFF;
-      border: none;
-      border-radius: 5px;
-      font-weight: bold;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body>
@@ -124,52 +102,37 @@
     <div class="underline"></div>
   </header>
   <div class="welcome">
-    <p><strong>Welcome!</strong><br>
-      This website contains memorable moments of my life — Puja photos, travel stories, birthdays, weddings, sports, and adventures.<br>
-      Use the side menu to browse what you’d like to view. Thank you for visiting.
-    </p>
-    <p><strong>স্বাগতম!</strong><br>
-      এই ওয়েবসাইটে আপনি দেখতে পাবেন আমার জীবনের কিছু স্মরণীয় মুহূর্ত — পুজোর ছবি, ভ্রমণের মুহূর্ত, জন্মদিন ও বিবাহের ভিডিও ও ছবি, খেলাধুলা, ঘোরাঘুরি।<br>
-      আপনি সাইড মেনু থেকে বেছে নিতে পারেন যেটি আপনি দেখতে চান। ধন্যবাদ এখানে আসার জন্য।
-    </p>
-    <div class="underline"></div>
+    <p>Welcome! Explore photos & videos of life’s special moments. | স্বাগতম! জীবনের কিছু বিশেষ মুহূর্তের ছবি ও ভিডিও দেখুন।</p>
   </div>
-  <div class="main">
-    <nav>
-      <ul>
-        <li><a href="#">📷 Photos</a>
-          <ul>
-            <li><a href="photos/pujo.html">📁 পুজো</a></li>
-            <li><a href="photos/travel.html">📁 ঘোরাঘুরি</a></li>
-            <li><a href="photos/birthday.html">📁 জন্মদিন</a></li>
-            <li><a href="photos/marriage.html">📁 বিবাহ</a></li>
-            <li><a href="photos/sports.html">📁 খেলাধুলা</a></li>
-          </ul>
-        </li>
-        <li><a href="#">🎬 Videos</a>
-          <ul>
-            <li><a href="videos/pujo.html">📁 পুজো</a></li>
-            <li><a href="videos/travel.html">📁 ঘোরাঘুরি</a></li>
-            <li><a href="videos/birthday.html">📁 জন্মদিন</a></li>
-            <li><a href="videos/marriage.html">📁 বিবাহ</a></li>
-            <li><a href="videos/sports.html">📁 খেলাধুলা</a></li>
-          </ul>
-        </li>
-        <li><a href="mailto:abhi.channel.info@gmail.com">📧 Email</a></li>
-        <li><a href="tel:+919XXXXXXXXX">📞 Call</a></li>
-      </ul>
-    </nav>
-    <div class="content">
-      <h2>Gallery Preview</h2>
-      <p>Choose a section from the left to begin browsing!</p><form onsubmit="submitForm(event)">
-    <h3>আপনার মতামত দিন</h3>
-    <input type="text" id="name" placeholder="Your name" required>
-    <textarea id="message" placeholder="Your message" required></textarea>
-    <button type="submit">Submit</button>
-  </form>
-</div>
 
+  <div class="main">
+    <div class="left-panel">
+      <h3>📷 Photos</h3>
+      <ul>
+        <li><a href="photos/pujo.html">📁 পুজো</a></li>
+        <li><a href="photos/travel.html">📁 ঘোরাঘুরি</a></li>
+        <li><a href="photos/birthday.html">📁 জন্মদিন</a></li>
+        <li><a href="photos/marriage.html">📁 বিবাহ</a></li>
+        <li><a href="photos/sports.html">📁 খেলাধুলা</a></li>
+      </ul>
+    </div>
+
+    <div class="center-panel">
+      <!-- মাঝখানের ফাঁকা জায়গা -->
+    </div>
+
+    <div class="right-panel">
+      <h3>🎬 Videos</h3>
+      <ul>
+        <li><a href="videos/pujo.html">📁 পুজো</a></li>
+        <li><a href="videos/travel.html">📁 ঘোরাঘুরি</a></li>
+        <li><a href="videos/birthday.html">📁 জন্মদিন</a></li>
+        <li><a href="videos/marriage.html">📁 বিবাহ</a></li>
+        <li><a href="videos/sports.html">📁 খেলাধুলা</a></li>
+      </ul>
+    </div>
   </div>
+
   <footer>
     <div class="social-icons">
       <a href="https://facebook.com"><img src="facebook.png" alt="Facebook"></a>
@@ -178,26 +141,6 @@
       <a href="mailto:abhi.channel.info@gmail.com"><img src="email.png" alt="Email"></a>
     </div>
     <p>&copy; 2025 Abhijit Biswas | All rights reserved.</p>
-  </footer>  <!-- Firebase SDK -->  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyAT2gwe14MlhNFT3rS2ev2zw2Quv1oCqHg",
-      authDomain: "iabhijitbiswas-11e97.firebaseapp.com",
-      projectId: "iabhijitbiswas-11e97",
-      storageBucket: "iabhijitbiswas-11e97.firebasestorage.app",
-      messagingSenderId: "1062642021460",
-      appId: "1:1062642021460:web:6ea8f915e8dbdc678469c1"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
-
-    function submitForm(e) {
-      e.preventDefault();
-      const name = document.getElementById("name").value;
-      const message = document.getElementById("message").value;
-      database.ref("messages").push({ name, message });
-      alert("Message submitted successfully!");
-      document.getElementById("name").value = "";
-      document.getElementById("message").value = "";
-    }
-  </script></body>
+  </footer>
+</body>
 </html>
