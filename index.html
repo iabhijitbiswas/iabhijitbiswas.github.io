@@ -1,63 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Abhijit's Website</title>
+  <title>Welcome to Abhijit's Website</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      font-family: sans-serif;
-      background: #e8f0fe;
+      background: linear-gradient(to right, #e3f2fd, #ffffff);
+      font-family: Arial, sans-serif;
       padding: 20px;
-      text-align: center;
     }
     h1 {
-      color: #1a73e8;
+      color: #0d47a1;
+      text-align: center;
     }
     form {
-      max-width: 400px;
-      margin: 20px auto;
-      background: #fff;
+      max-width: 500px;
+      margin: 40px auto;
       padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+      background: #f1f1f1;
+      border-radius: 10px;
+      box-shadow: 2px 2px 10px #ccc;
     }
     input, textarea {
       width: 100%;
       padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #aaa;
     }
     button {
-      background-color: #1a73e8;
+      background: #0d47a1;
       color: white;
-      padding: 12px 20px;
-      font-size: 16px;
+      padding: 10px 20px;
       border: none;
-      border-radius: 8px;
+      margin-top: 15px;
+      border-radius: 5px;
       cursor: pointer;
     }
-    button:hover {
-      background-color: #0b5ed7;
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #777;
     }
   </style>
 </head>
 <body>
-  <h1>Submit Your Info</h1>
-  <form id="contactForm">
-    <input type="text" id="name" placeholder="Your Name" required />
-    <textarea id="message" placeholder="Your Message" required></textarea>
-    <button type="submit">Submit</button>
+
+  <h1>স্বাগতম ABHIJIT BISWAS-এর ওয়েবসাইটে!</h1>
+  <p style="text-align:center;">এখানে আপনি ছবি, ভিডিও, বার্তা, আর অনেক কিছু দেখতে ও জানাতে পারবেন।</p>
+
+  <form onsubmit="submitForm(event)">
+    <h2>তোমার মতামত পাঠাও</h2>
+    <input type="text" id="name" placeholder="তোমার নাম" required>
+    <textarea id="message" placeholder="তোমার বার্তা লিখো..." required></textarea>
+    <button type="submit">পাঠাও</button>
+    <p id="confirmation" style="color: green; margin-top: 10px;"></p>
   </form>
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
+  <footer>
+    &copy; 2025 Abhijit Biswas | Contact: iabhijitbiswas@gmail.com
+  </footer>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 
   <script>
-    // ✅ Step 1: Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyAT2gwe14MlhNFT3rS2ev2zw2Quv1oCqHg",
       authDomain: "iabhijitbiswas-11e97.firebaseapp.com",
@@ -67,29 +76,25 @@
       appId: "1:1062642021460:web:6ea8f915e8dbdc678469c1"
     };
 
-    // ✅ Step 2: Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
 
-    // ✅ Step 3: Form Handling
-    const form = document.getElementById('contactForm');
-    form.addEventListener('submit', (e) => {
+    function submitForm(e) {
       e.preventDefault();
-      const name = document.getElementById('name').value;
-      const message = document.getElementById('message').value;
+      const name = document.getElementById("name").value;
+      const message = document.getElementById("message").value;
 
-      // Save data to Firebase
-      const newRef = database.ref('messages').push();
-      newRef.set({
+      database.ref("messages").push({
         name: name,
         message: message,
-        timestamp: new Date().toISOString()
+        timestamp: Date.now()
       });
 
-      // Optional: Clear form after submit
-      form.reset();
-      alert("Thanks! Your message has been sent.");
-    });
+      document.getElementById("confirmation").textContent = "তোমার বার্তা পাঠানো হয়েছে!";
+      document.getElementById("name").value = "";
+      document.getElementById("message").value = "";
+    }
   </script>
+
 </body>
 </html>
