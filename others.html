@@ -5,7 +5,16 @@
 <title>অন্যান্য অ্যালবাম | Abhijit Biswas</title>
 <style>
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#171717;color:#fff;font-family:"Noto Sans Bengali","Segoe UI",sans-serif}header{height:68px;display:flex;align-items:center;justify-content:center;position:relative;background:#242424;border-bottom:1px solid #b99e6b}header a{position:absolute;left:16px;color:#ead6a9;text-decoration:none;font-size:17px}h1{font-size:clamp(20px,4vw,30px);color:#f0d9ac;margin:0}.wrap{max-width:1000px;margin:auto;padding:22px 14px 32px}.viewer{border:1px solid #806c49;border-radius:16px;background:#292929;padding:14px}.stage{height:min(68vh,720px);min-height:300px;display:flex;align-items:center;justify-content:center;background:#080808;border-radius:12px;overflow:hidden}.stage img{display:block;width:100%;height:100%;object-fit:contain}.empty{padding:25px;text-align:center;color:#eadbb9;line-height:1.8}.controls{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;padding:16px 0 4px}.btn{border:0;border-radius:10px;background:#087f7b;color:white;padding:12px 17px;font-size:16px;cursor:pointer}.btn:active{opacity:.8}.count{color:#e9d4a8;min-width:55px;text-align:center}.tip{color:#c9c0b2;text-align:center;font-size:13px;margin:13px 0 0}
-body.fullscreen{overflow:hidden}body.fullscreen header{display:none}body.fullscreen .wrap{padding:0;max-width:none}body.fullscreen .viewer{border:0;border-radius:0;padding:0;background:#000;height:100dvh;display:flex;flex-direction:column}body.fullscreen .stage{height:auto;min-height:0;flex:1;border-radius:0;background:#000}body.fullscreen .stage img{object-fit:contain;width:100%;height:100%}body.fullscreen .controls{padding:10px 8px max(10px,env(safe-area-inset-bottom));margin:0;background:#111}body.fullscreen .btn{padding:10px 13px;font-size:14px}body.fullscreen .tip{display:none}
+body.fullscreen{overflow:hidden}
+body.fullscreen header{display:none}
+body.fullscreen .wrap{position:fixed;inset:0;padding:0;margin:0;max-width:none;width:100vw;height:100dvh;z-index:9999}
+body.fullscreen .viewer{position:absolute;inset:0;border:0;border-radius:0;padding:0;background:#000;height:100%;width:100%;display:block}
+body.fullscreen .stage{position:absolute;inset:0;height:100%;min-height:0;width:100%;border-radius:0;background:#000}
+body.fullscreen .stage img{object-fit:contain;width:100%;height:100%}
+body.fullscreen .controls{position:absolute;left:0;right:0;bottom:0;display:flex;flex-wrap:nowrap;align-items:center;justify-content:center;gap:clamp(4px,1.5vw,12px);padding:10px 8px max(12px,env(safe-area-inset-bottom));margin:0;background:linear-gradient(transparent,#000c);white-space:nowrap}
+body.fullscreen .btn{padding:9px clamp(8px,2vw,15px);font-size:clamp(12px,2.4vw,16px);flex:0 1 auto}
+body.fullscreen .count{font-size:13px;min-width:42px}
+.tip{display:none}
 @media(max-width:520px){.wrap{padding:12px 8px}.viewer{padding:9px}.stage{height:62vh;min-height:260px}.btn{padding:10px 12px;font-size:14px}}
 </style></head>
 <body><header><a href="index.html">← হোম</a><h1>অন্যান্য অ্যালবাম</h1></header>
@@ -21,7 +30,33 @@ let index=0,timer=null;const stage=document.getElementById('stage'),count=docume
 function show(){stage.replaceChildren();if(!photos.length){const d=document.createElement('div');d.className='empty';d.innerHTML='এখনও ছবি যোগ করা হয়নি।<br>PHOTO_IDS তালিকায় Google Drive-এর ছবির ID বসান।';stage.append(d);count.textContent='0 / 0';return}const img=new Image();img.alt='অন্যান্য ছবি '+(index+1);img.src=photos[index];img.onerror=()=>{stage.innerHTML='<div class="empty">ছবিটি লোড হচ্ছে না। Drive-এর sharing “Anyone with the link – Viewer” আছে কি না এবং File ID ঠিক আছে কি না দেখুন।</div>'};stage.append(img);count.textContent=(index+1)+' / '+photos.length}
 function stop(){clearInterval(timer);timer=null;play.textContent='▶ স্লাইডশো চালু'}function next(){if(!photos.length)return;index=(index+1)%photos.length;show()}function prev(){if(!photos.length)return;index=(index-1+photos.length)%photos.length;show()}
 document.getElementById('next').onclick=()=>{stop();next()};document.getElementById('prev').onclick=()=>{stop();prev()};play.onclick=()=>{if(timer){stop();return}if(photos.length<2)return;play.textContent='Ⅱ স্লাইডশো বন্ধ';timer=setInterval(next,3500)};
-async function enterFull(){try{if(!document.fullscreenElement){await document.documentElement.requestFullscreen()}document.body.classList.add('fullscreen');full.textContent='⤢ স্ক্রিন থেকে বের হন'}catch(e){alert('আপনার ব্রাউজারে পূর্ণ স্ক্রিন চালু করা যায়নি। Chrome-এর মেনু থেকে Add to Home screen ব্যবহার করেও দেখতে পারেন।')}}
-full.onclick=()=>{if(document.fullscreenElement){document.exitFullscreen()}else{enterFull()}};document.addEventListener('fullscreenchange',()=>{const on=!!document.fullscreenElement;document.body.classList.toggle('fullscreen',on);full.textContent=on?'⤢ স্ক্রিন থেকে বের হন':'⛶ পূর্ণ স্ক্রিন'});
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){stop();next()}if(e.key==='ArrowLeft'){stop();prev()}if(e.key==='Escape')document.body.classList.remove('fullscreen')});show();
+async function enterFull(){
+  try{
+    await document.documentElement.requestFullscreen();
+    document.body.classList.add('fullscreen');
+    // Android Chrome-এ fullscreen-এর পরে landscape orientation lock করার চেষ্টা।
+    if(screen.orientation && screen.orientation.lock){
+      try{await screen.orientation.lock('landscape')}catch(err){
+        // কিছু ব্রাউজার বা ডিভাইসে orientation lock অনুমোদিত নয়।
+      }
+    }
+    full.textContent='⤢ স্ক্রিন থেকে বের হন';
+  }catch(e){
+    alert('পূর্ণ স্ক্রিন চালু হয়নি। Chrome ব্যবহার করুন এবং ফোনের Auto-rotate চালু রাখুন।');
+  }
+}
+async function exitFull(){
+  try{if(document.fullscreenElement) await document.exitFullscreen()}catch(e){}
+  try{if(screen.orientation && screen.orientation.unlock) screen.orientation.unlock()}catch(e){}
+  document.body.classList.remove('fullscreen');
+  full.textContent='⛶ পূর্ণ স্ক্রিন';
+}
+full.onclick=()=>{if(document.fullscreenElement){exitFull()}else{enterFull()}};
+document.addEventListener('fullscreenchange',()=>{
+  const on=!!document.fullscreenElement;
+  document.body.classList.toggle('fullscreen',on);
+  full.textContent=on?'⤢ স্ক্রিন থেকে বের হন':'⛶ পূর্ণ স্ক্রিন';
+  if(!on){try{if(screen.orientation && screen.orientation.unlock)screen.orientation.unlock()}catch(e){}}
+});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){stop();next()}if(e.key==='ArrowLeft'){stop();prev()}if(e.key==='Escape')exitFull()});show();
 </script></body></html>
